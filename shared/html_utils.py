@@ -107,7 +107,7 @@ def convert_bottom_to_top(html_string, offset_x=0, offset_y=0):
         selector = match.group(1)
         properties = match.group(2)
         
-        # Find bottom property
+        # Find bottom property with numeric value
         bottom_match = re.search(r'bottom:(\d+\.?\d*)px', properties)
         if bottom_match:
             bottom_px = float(bottom_match.group(1))
@@ -120,6 +120,18 @@ def convert_bottom_to_top(html_string, offset_x=0, offset_y=0):
             
             # Replace bottom with top
             properties = re.sub(r'bottom:(\d+\.?\d*)px', f'top:{top_px:.0f}px', properties)
+        
+        # Also handle the case of "bottom: 0;" which doesn't match the above pattern
+        elif 'bottom: 0;' in properties or 'bottom:0;' in properties:
+            # For bottom: 0, top should be HTML_HEIGHT
+            top_px = HTML_HEIGHT
+            
+            # Apply vertical offset if provided
+            if offset_y != 0:
+                top_px += offset_y
+            
+            # Replace bottom: 0; with top: HTML_HEIGHT;
+            properties = re.sub(r'bottom:\s*0;', f'top:{top_px:.0f}px;', properties)
         
         # Apply horizontal offset to left property if provided
         if offset_x != 0:
@@ -146,6 +158,38 @@ def convert_bottom_to_top(html_string, offset_x=0, offset_y=0):
     
     # Replace style tags with processed content
     result_html = re.sub(style_pattern, process_style, html_string, flags=re.DOTALL)
+    
+    # Process inline styles with bottom positioning
+    def replace_inline_style(match):
+        style_attr = match.group(1)
+        
+        # Find bottom property in inline style
+        bottom_match = re.search(r'bottom:(\d+\.?\d*)px', style_attr)
+        if bottom_match:
+            bottom_px = float(bottom_match.group(1))
+            # Calculate top value: top = HTML_HEIGHT - bottom
+            top_px = HTML_HEIGHT - bottom_px
+            
+            # Apply vertical offset if provided
+            if offset_y != 0:
+                top_px += offset_y
+            
+            # Replace bottom with top
+            style_attr = re.sub(r'bottom:(\d+\.?\d*)px', f'top:{top_px:.0f}px', style_attr)
+        
+        # Apply horizontal offset to left property if provided
+        if offset_x != 0:
+            left_match = re.search(r'left:(\d+\.?\d*)px', style_attr)
+            if left_match:
+                left_px = float(left_match.group(1))
+                new_left_px = left_px + offset_x
+                style_attr = re.sub(r'left:(\d+\.?\d*)px', f'left:{new_left_px:.0f}px', style_attr)
+        
+        return f'style="{style_attr}"'
+    
+    # Find and replace inline styles with bottom positioning
+    inline_style_pattern = r'style="([^"]*bottom:[^"]*)"'
+    result_html = re.sub(inline_style_pattern, replace_inline_style, result_html)
     
     return result_html
 
