@@ -47,6 +47,62 @@ Wir erstellen ein Python-Modul, das folgende Aufgaben erfüllt:
 
 - `HTML5_to_JasperReports_Converter.ipynb` – Hauptnotebook mit allen Funktionen zur Konvertierung
 - `OLD_HTML_to_Jesperreports_COnverter.ipynb` – Alte Version des Konverters (Referenz)
+- `html_converter.py` - Python-Modul mit der Implementierung der Konvertierungsfunktionen
+
+---
+
+## 🔄 Verwendung der `orginal_Html_string` Funktion
+
+Die `orginal_Html_string` Funktion ermöglicht es dir, deinen eigenen HTML-Code für die Konvertierung zu verwenden.
+
+### Wie man die Funktion verwendet:
+
+1. **Im Jupyter Notebook:**
+   ```python
+   # Importiere die benötigten Module
+   from html_converter import convert_bottom_to_top, save_html_with_timestamp, save_original_html
+   
+   # Definiere deinen HTML-String
+   mein_html = """<!DOCTYPE html>
+   <html>
+   <head>
+       <meta charset="utf-8" />
+   </head>
+   <body>
+       <!-- Dein HTML-Code hier -->
+       <div style="position: absolute; left: 100px; bottom: 200px;">Beispieltext</div>
+   </body>
+   </html>"""
+   
+   # Verwende die orginal_Html_string Funktion
+   # Diese Funktion nimmt deinen HTML-String entgegen und gibt ihn zurück
+   # Beispiel aus dem Notebook:
+   html_code = mein_html  # In deinem Code: html_code = orginal_Html_string(mein_html)
+   
+   # Jetzt kannst du mit dem HTML-Code weiterarbeiten
+   # z.B. Konvertierung von bottom zu top Koordinaten
+   converted_html = convert_bottom_to_top(html_code)
+   
+   # Speichere das Ergebnis
+   save_html_with_timestamp(converted_html)
+   ```
+
+2. **Parameter der `orginal_Html_string` Funktion:**
+   - `html_string`: Der HTML-Code als String, der für die Konvertierung verwendet werden soll
+
+3. **Rückgabewert:**
+   - Die Funktion gibt den übergebenen HTML-String zurück, der dann für die weitere Verarbeitung verwendet werden kann
+
+### Tipps:
+- Stelle sicher, dass dein HTML-Code gültig ist und die erforderlichen CSS-Eigenschaften enthält
+- Für die Konvertierung von `bottom` zu `top` Koordinaten sollten die Elemente mit `bottom` Positionierung versehen sein
+- Du kannst auch HTML aus einer Datei laden:
+  ```python
+  from html_converter import load_html_from_file
+  
+  # Lade HTML aus einer Datei
+  html_code = load_html_from_file("pfad/zu/deiner/datei.html")
+  ```
 
 ---
 
