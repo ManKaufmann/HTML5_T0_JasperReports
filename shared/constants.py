@@ -5,8 +5,8 @@ This module contains all the technical constants used in the HTML to JasperRepor
 """
 
 # HTML page dimensions and margins
-HTML_WIDTH = 1210
-HTML_HEIGHT = 825
+HTML_WIDTH = 909
+HTML_HEIGHT = 1286
 HTML_MARGIN_TOP = 0
 HTML_MARGIN_RIGHT = 0
 HTML_MARGIN_BOTTOM = 0
@@ -15,10 +15,10 @@ HTML_MARGIN_LEFT = 0
 # JasperReport page dimensions and margins (A4)
 JASPER_PAGE_WIDTH = 595
 JASPER_PAGE_HEIGHT = 842
-JASPER_MARGIN_TOP = 20
-JASPER_MARGIN_RIGHT = 20
-JASPER_MARGIN_BOTTOM = 20
-JASPER_MARGIN_LEFT = 20
+JASPER_MARGIN_TOP = 0
+JASPER_MARGIN_RIGHT = 0
+JASPER_MARGIN_BOTTOM = 0
+JASPER_MARGIN_LEFT = 0
 
 # Calculate scale factors for converting between HTML and JasperReport dimensions
 SCALE_FACTOR_X = (JASPER_PAGE_WIDTH - JASPER_MARGIN_LEFT - JASPER_MARGIN_RIGHT) / HTML_WIDTH
