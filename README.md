@@ -1,65 +1,158 @@
-## 📘 Einführung in das Projekt: HTML5 nach JasperReports mit Python in Google Colab
+# 🧾 HTML zu JasperReport Konverter
 
-Willkommen zum Projekt!  
-In diesem Projekt entwickeln wir Python-Funktionen, die HTML5-Code in die Sprache von JasperReports überführen. Ziel ist es, Webinhalte automatisiert in strukturierte Report-Layouts zu konvertieren.
+## 🎯 Projektziel
 
-### 🔧 Voraussetzungen
+Dieses Projekt bietet eine Sammlung von Jupyter-Notebooks und Python-Funktionen, um HTML5-Code (z.B. aus Annotierungs-Tools) in eine Form zu überführen, die mit JasperReport kompatibel ist. Dabei werden bestimmte CSS-Angaben konvertiert oder angepasst – z.B. `bottom` zu `top`, oder zusätzliche `offsets` berücksichtigt.
 
-- Ein Google-Konto
-- Grundkenntnisse in Python
-- HTML5-Basiswissen
-- Grundverständnis von JasperReports (optional, hilfreich)
+Die Umsetzung erfolgt mit **einfachen Python-Funktionen**, die HTML-Code parsen und manipulieren. Die Bedienung erfolgt über **Jupyter-Notebooks**, die für jeden Anwendungsfall separat und übersichtlich aufgebaut sind.
 
----
+## 📋 Funktionen
 
-## ▶️ Google Colab öffnen und starten
+Das Projekt bietet folgende Hauptfunktionen:
 
-1. Öffne [Google Colab](https://colab.research.google.com).
-2. Klicke auf „Datei öffnen“ > „GitHub“ und gib das Projekt-Repository oder den Dateipfad ein.
-3. Alternativ kannst du eine `.ipynb`-Datei von deinem lokalen Rechner hochladen.
-4. Nach dem Öffnen kannst du den Code sofort ausführen oder anpassen.
+1. **Umrechnung von `bottom` zu `top`**: Konvertiert bottom-positionierte Elemente zu top-positionierten Elementen
+2. **Anwendung von Offsets**: Fügt Offset-Werte zu Positionsangaben hinzu
+3. **Batch-Konvertierung**: Verarbeitet mehrere HTML-Dateien in einem Durchgang
+4. **Extraktion von Positionsdaten**: Extrahiert und analysiert Positionsinformationen aus HTML-Elementen
+5. **Konvertierung zu JasperReport-XML**: Wandelt HTML-Elemente in JasperReport-XML-Snippets um
 
----
+## 📂 Projektstruktur
 
-## 🚀 Projektziel
+```
+html_to_jasper/
+├── data/
+│   ├── original/      # HTML-Originaldateien
+│   └── output/        # Konvertierte HTML-Dateien
+├── notebooks/
+│   ├── 01_convert_bottom_to_top.ipynb
+│   ├── 02_apply_offset.ipynb
+│   ├── 03_batch_convert_folder.ipynb
+│   ├── 04_extract_positions.ipynb
+│   └── 05_html_to_jasper_snippets.ipynb
+├── shared/
+│   ├── constants.py   # Seitengröße, Ränder etc.
+│   └── html_utils.py  # Wiederverwendbare Funktionen
+└── README.md
+```
 
-Wir erstellen ein Python-Modul, das folgende Aufgaben erfüllt:
+## 🔧 Installation und Voraussetzungen
 
-1. **Konstanten setzen**  
-   - HTML-Seitengröße definieren (z. B. `width`, `height`, `margins`)
-   - JasperReports-Parameter definieren (z. B. `pageWidth`, `pageHeight`)
+### Voraussetzungen
 
-2. **HTML-Code übergeben & speichern**  
-   - Eingabe von HTML als String oder Datei
-   - Speicherung zur Weiterverarbeitung
+- Python 3.6 oder höher
+- Jupyter Notebook oder JupyterLab
+- Grundkenntnisse in Python und HTML
 
-3. **Code-Sektionen erkennen & strukturieren**  
-   - Z. B. `div`, `table`, `img`, `p`, `span` usw.
-   - Klassifizierung für spätere Konvertierung
+### Installation
 
-4. **Verarbeitung & Ausgabe**  
-   - Konvertierung in JasperReports XML-Syntax
-   - Export in `.jrxml` oder Vorschau als strukturierter Text
+1. Klone das Repository:
+   ```bash
+   git clone https://github.com/username/html_to_jasper.git
+   cd html_to_jasper
+   ```
 
----
+2. Installiere die benötigten Pakete:
+   ```bash
+   pip install beautifulsoup4 ipywidgets pandas
+   ```
 
-## 📂 Struktur & Module
+3. Starte Jupyter Notebook:
+   ```bash
+   jupyter notebook
+   ```
 
-- `constants.py` – enthält die Standardwerte für Seitengrößen
-- `html_parser.py` – analysiert den HTML-Code
-- `converter.py` – führt die Umwandlung nach Jasper durch
-- `main.ipynb` – Colab-Datei mit Beispielaufrufen und Tests
+## 📒 Notebooks
 
----
+### 01_convert_bottom_to_top.ipynb
 
-## 💡 Hinweis
+In diesem Notebook wird die Positionierung von HTML-Elementen, die per `bottom` definiert sind, in `top`-Positionen umgerechnet.
 
-Die Transformation von HTML nach JasperReports ist kein 1:1-Mapping. Daher verwenden wir spezielle Operationen, die auf häufige Strukturen abgestimmt sind (Tabellen, Textblöcke, Styles).
+**Bedienung:**
+1. HTML-Code eingeben oder Datei auswählen
+2. Offset-Werte für X und Y optional einstellen
+3. Umrechnung per Button starten
+4. Ausgabe wird angezeigt und in `data/output/` gespeichert
 
----
+### 02_apply_offset.ipynb
 
-## 📞 Bei Problemen
+Dieses Notebook ermöglicht die Anwendung von Offset-Korrekturen für `left` und `top` Werte in HTML-Elementen.
 
-Bitte stelle sicher, dass alle benötigten Bibliotheken in Colab installiert sind, z. B. mit:
-```python
-!pip install beautifulsoup4 lxml
+**Bedienung:**
+1. HTML-Code eingeben oder Datei auswählen
+2. Offset-Werte für X und Y einstellen
+3. Umrechnung per Button starten
+4. Ausgabe wird angezeigt und in `data/output/` gespeichert
+
+### 03_batch_convert_folder.ipynb
+
+Mit diesem Notebook können alle HTML-Dateien in einem Ordner automatisch verarbeitet werden.
+
+**Bedienung:**
+1. Quell- und Zielordner auswählen
+2. Konvertierungsfunktion auswählen (Bottom zu Top oder Offset anwenden)
+3. Parameter für die gewählte Funktion einstellen
+4. Batch-Verarbeitung per Button starten
+5. Ergebnisse werden im Zielordner gespeichert
+
+### 04_extract_positions.ipynb
+
+Dieses Notebook extrahiert Positionsinformationen (top/left) aus HTML-Elementen und stellt sie tabellarisch dar.
+
+**Bedienung:**
+1. HTML-Code eingeben oder Datei auswählen
+2. Extraktion per Button starten
+3. Positionsdaten werden als Tabelle angezeigt
+4. Optional: Daten als CSV exportieren
+
+### 05_html_to_jasper_snippets.ipynb
+
+Dieses Notebook konvertiert HTML-Elemente in JasperReport-XML-Bausteine, die in JasperReport-Vorlagen eingefügt werden können.
+
+**Bedienung:**
+1. HTML-Code eingeben oder Datei auswählen
+2. Konvertierungsoptionen einstellen (Skalierungsfaktoren, Header/Footer, etc.)
+3. Konvertierung per Button starten
+4. JasperReport-XML wird angezeigt und kann kopiert werden
+5. Optional: XML in Datei speichern
+
+## 🧩 Shared Modules
+
+### constants.py
+
+Enthält alle technischen Konstanten für die HTML- und JasperReport-Konvertierung:
+
+- HTML-Dimensionen und Ränder
+- JasperReport-Dimensionen und Ränder
+- Skalierungsfaktoren für die Konvertierung
+
+### html_utils.py
+
+Enthält wiederverwendbare Funktionen für die HTML-Verarbeitung:
+
+- HTML-Parsing und CSS-Extraktion
+- Konvertierung von bottom zu top
+- Anwendung von Offsets
+- Extraktion von Positionsdaten
+- Dateioperationen (Laden/Speichern)
+- Batch-Verarbeitung
+
+## 💡 Tipps zur Verwendung
+
+- Stelle sicher, dass dein HTML-Code gültig ist und die erforderlichen CSS-Eigenschaften enthält
+- Für die Konvertierung von `bottom` zu `top` sollten die Elemente mit `bottom` Positionierung versehen sein
+- Die Skalierungsfaktoren können angepasst werden, um die Größenverhältnisse zwischen HTML und JasperReport zu optimieren
+- Nutze die Batch-Verarbeitung für die effiziente Konvertierung mehrerer Dateien
+- Exportiere Positionsdaten als CSV für weitere Analysen oder Dokumentation
+
+## 📞 Fehlerbehebung
+
+Bei Problemen mit den Notebooks:
+
+1. Stelle sicher, dass alle benötigten Bibliotheken installiert sind:
+   ```python
+   !pip install beautifulsoup4 ipywidgets pandas
+   ```
+
+2. Überprüfe die Pfade zu den Dateien und Ordnern
+3. Prüfe, ob der HTML-Code gültig ist und die erwarteten CSS-Eigenschaften enthält
+4. Bei Fehlern in der Konvertierung, überprüfe die Konstanten in `shared/constants.py`
