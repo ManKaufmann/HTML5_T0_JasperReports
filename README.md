@@ -45,10 +45,8 @@ Wir erstellen ein Python-Modul, das folgende Aufgaben erfüllt:
 
 ## 📂 Struktur & Module
 
-- `constants.py` – enthält die Standardwerte für Seitengrößen
-- `html_parser.py` – analysiert den HTML-Code
-- `converter.py` – führt die Umwandlung nach Jasper durch
-- `main.ipynb` – Colab-Datei mit Beispielaufrufen und Tests
+- `HTML5_to_JasperReports_Converter.ipynb` – Hauptnotebook mit allen Funktionen zur Konvertierung
+- `OLD_HTML_to_Jesperreports_COnverter.ipynb` – Alte Version des Konverters (Referenz)
 
 ---
 
