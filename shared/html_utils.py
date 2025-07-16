@@ -283,8 +283,11 @@ def save_html_to_file(html_string, function_name="converted", timestamp=None):
     Returns:
         str: The path to the saved file
     """
+    # Get the project root directory (parent of the shared directory)
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
     # Create output directory if it doesn't exist
-    output_dir = "data/output"
+    output_dir = os.path.join(project_root, "data", "output")
     os.makedirs(output_dir, exist_ok=True)
     
     # Generate timestamp if not provided
@@ -300,6 +303,7 @@ def save_html_to_file(html_string, function_name="converted", timestamp=None):
         file.write(html_string)
     
     print(f"HTML saved to: {file_path}")
+    print(f"Konvertiertes HTML gespeichert unter: {file_path}")
     return file_path
 
 def save_original_html(html_string, timestamp=None):
@@ -314,8 +318,11 @@ def save_original_html(html_string, timestamp=None):
     Returns:
         str: The path to the saved file
     """
+    # Get the project root directory (parent of the shared directory)
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
     # Create original directory if it doesn't exist
-    original_dir = "data/original"
+    original_dir = os.path.join(project_root, "data", "original")
     os.makedirs(original_dir, exist_ok=True)
     
     # Generate timestamp if not provided
@@ -330,7 +337,7 @@ def save_original_html(html_string, timestamp=None):
     with open(file_path, 'w', encoding='utf-8') as file:
         file.write(html_string)
     
-    print(f"Original HTML saved to: {file_path}")
+    print(f"Original-HTML gespeichert unter: {file_path}")
     return file_path
 
 def batch_convert_folder(input_folder="data/original", output_folder="data/output", 
@@ -350,6 +357,15 @@ def batch_convert_folder(input_folder="data/original", output_folder="data/outpu
     Returns:
         list: A list of paths to the converted files
     """
+    # Get the project root directory
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    
+    # Convert relative paths to absolute paths if they don't start with a slash
+    if not os.path.isabs(input_folder):
+        input_folder = os.path.join(project_root, input_folder)
+    if not os.path.isabs(output_folder):
+        output_folder = os.path.join(project_root, output_folder)
+    
     # Create output folder if it doesn't exist
     os.makedirs(output_folder, exist_ok=True)
     
